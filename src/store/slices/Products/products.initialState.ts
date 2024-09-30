@@ -4,6 +4,7 @@ const initialState: productSliceInitialState = {
   Data: [],
   isLoadingData: false,
   err: "",
+  categoryData:[],
   singleProduct: {
     id: "",
     name: "",

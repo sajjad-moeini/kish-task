@@ -9,26 +9,27 @@ import {
 
 // function ProductBox({name,data,id}:Product) {
 function ProductBox({ name, data, id }: any) {
+  
   const dispatch = useAppDispatch();
   const openModalHandler = () => {
-    dispatch(GetProductsById({ id }));
     dispatch(openModal());
+    dispatch(GetProductsById({ id }));
   };
   const showProductDetaileHandler = () => {
-    dispatch(setModalType({ type: "showDetail" }));
     openModalHandler();
+    dispatch(setModalType({ type: "showDetail" }));
   };
   const editProductInfoHandler = () => {
-    dispatch(setModalType({ type: "edit" }));
     openModalHandler();
+    dispatch(setModalType({ type: "edit" }));
   };
   const editProductNameHandler = () => {
-    dispatch(setModalType({ type: "editName" }));
     openModalHandler();
+    dispatch(setModalType({ type: "editName" }));
   };
   const deleteProductHandler=()=>{
-    dispatch(setModalType({ type: "delete" }));
     openModalHandler();
+    dispatch(setModalType({ type: "delete" }));
   }
   return (
     <div className="w-full mx-auto flex justify-center items-center">

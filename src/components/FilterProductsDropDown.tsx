@@ -12,7 +12,7 @@ function FilterProductsDropDown() {
   const [isShowAllProducts, setIsShowAllProducts] = useState(true);
   const [selectedProductsId, setSelectedProductsId] = useState<string[]>([]);
   const dispatch = useAppDispatch();
-  const { Data} = useAppSelector((state) => state.products);
+  const { categoryData} = useAppSelector((state) => state.products);
   useEffect(() => {
     if (selectedProductsId.length === 0) dispatch(getAllProducts());
     else dispatch(filterProductsById({query:QueryGenerator(selectedProductsId)}))
@@ -62,7 +62,7 @@ function FilterProductsDropDown() {
                 onChange={selectShowAllProductsHandler}
               />
             </div>
-            {Data.map((product) => (
+            {categoryData.map((product) => (
               <div
                 className="flex justify-around rounded-b-lg items-center text-white px-1  my-3"
                 key={product.id}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import Loader from "../Loader/Loader";
 import CustomInput from "../CustomInput";
@@ -9,11 +9,14 @@ function EditNameModal() {
     (state) => state.products.singleProduct
   );
   const { singleProductLoading } = useAppSelector((state) => state.products);
-  const [newName, setNewName] = useState(name);
+  const [newName, setNewName] = useState("");
   const dispatch = useAppDispatch();
   const handleSubmit = () => {
        dispatch(EditProductName({id,name:newName}))
   };
+  useEffect(()=>{
+setNewName(name)
+  },[name])
 
   return (
     <>

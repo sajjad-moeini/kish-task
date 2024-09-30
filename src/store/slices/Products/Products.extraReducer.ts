@@ -22,7 +22,7 @@ export const getAllProducts = createAsyncThunk<AllProducts>(
   "Products/getAllProducts",
   async (_, { dispatch, rejectWithValue }) => {
     try {
-      const response = await Http.get(``)
+      const response = await Http.get(`${appUrls.GatAll}`)
         .then((res) => {
           if (res.status === 200) {
             return res.data;
@@ -46,7 +46,7 @@ export const filterProductsById = createAsyncThunk<
   "Products/filterProductsById",
   async ({ query }, { dispatch, rejectWithValue }) => {
     try {
-      const response = await Http.get(`${query}`)
+      const response = await Http.get(`${appUrls.FilterByIds}${query}`)
         .then((res) => {
           if (res.status === 200) {
             return res.data;
@@ -67,7 +67,7 @@ export const GetProductsById = createAsyncThunk<Product, { id: string }>(
   "Products/GetProductsById",
   async ({ id }, { dispatch, rejectWithValue }) => {
     try {
-      const response = await Http.get(`/${id}`)
+      const response = await Http.get(`${appUrls.GetProductById}/${id}`)
         .then((res) => {
           if (res.status === 200) {
             return res.data;
@@ -88,7 +88,7 @@ export const addNewProduct = createAsyncThunk<Product, newProduct>(
   "Products/addNewProduct",
   async ({ data }, { dispatch, rejectWithValue }) => {
     try {
-      const response = await Http.post("", data)
+      const response = await Http.post(`${appUrls.AddNewProduct}`, data)
         .then((res) => {
           if (res.status === 201) {
             dispatch(getAllProducts());
@@ -116,7 +116,7 @@ export const EditProductInfo = createAsyncThunk<Product, any>(
       data: newInfo,
     };
     try {
-      const response = await Http.put(`${id}`, editedData)
+      const response = await Http.put(`${appUrls.EditProduct}/${id}`, editedData)
         .then((res) => {
           if (res.status === 200) {
             dispatch(getAllProducts());
@@ -138,9 +138,9 @@ export const EditProductInfo = createAsyncThunk<Product, any>(
 export const EditProductName= createAsyncThunk<Product, {name:string,id:string}>(
   "Products/EditProductName",
   async ({ name,id }, { dispatch, rejectWithValue }) => {
-  
+  console.log(id)
     try {
-      const response = await Http.patch(`/${id}`, {name})
+      const response = await Http.patch(`${appUrls.EditProductName}/${id}`, {name})
         .then((res) => {
           if (res.status === 200) {
             dispatch(getAllProducts());
@@ -164,7 +164,7 @@ export const DeleteProduct= createAsyncThunk<{message:string}, {id:string}>(
   async ({ id }, { dispatch, rejectWithValue }) => {
   
     try {
-      const response = await Http.delete(`/${id}`)
+      const response = await Http.delete(`${appUrls.DeleteProduct}/${id}`)
         .then((res) => {
           if (res.status === 200) {
             dispatch(getAllProducts());

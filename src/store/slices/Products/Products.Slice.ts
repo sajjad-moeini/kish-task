@@ -21,6 +21,7 @@ const ProductsSlice = createSlice({
        .addCase(getAllProducts.fulfilled, (state, { payload }:PayloadAction<AllProducts>) => {
          state.isLoadingData = false;
          state.Data = payload;
+         state.categoryData=payload
        })
        .addCase(getAllProducts.rejected, (state) => {
          state.isLoadingData = false;
