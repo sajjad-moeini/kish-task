@@ -17,12 +17,17 @@ type ProductsData ={
 export type Product = {
        id:string,
        name:string,
-       date:ProductsData
+       data:ProductsData
 }
 
 export type AllProducts =Product[]
 
 export type productSliceInitialState = {
-       isLoadingDate:boolean
-       Data:AllProducts
+       isLoadingData:boolean
+       Data:AllProducts,
+       err:string
+}
+
+export type errMessage ={
+       message:string
 }

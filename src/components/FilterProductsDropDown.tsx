@@ -1,23 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChevDownIcon from "./Icons/ChevDownIcon";
 import ChevUpIcon from "./Icons/ChevUpIcon";
+import { useAppDispatch } from "../store";
+import { getAllProducts } from "../store/slices/Products/Products.extraReducer";
 
 function FilterProductsDropDown() {
   const [isOpenDropDown, setIsOpenDropDown] = useState(false);
+  const [isShowAllProducts, setIsShowAllProducts] = useState(true);
+  const dispatch = useAppDispatch();
+
+useEffect(()=>{
+       dispatch(getAllProducts())
+},[])
+  
 
   const showDropDownHandler = () => {
     setIsOpenDropDown((prev) => !prev);
   };
-
+  const selectShowAllProductsHandler = () => {
+       setIsShowAllProducts(true);
+    dispatch(getAllProducts())
+  };
   return (
     <div
-      className="px-4 py-2 bg-blue-600 rounded-lg text-white flex justify-around items-center gap-2 cursor-pointer relative"
+      className="px-4 py-1 md:py-2 bg-blue-600 rounded-lg text-white flex justify-around items-center gap-2 cursor-pointer relative"
       onClick={showDropDownHandler}
     >
       <div className="mb-1 text-lg">Filter Products</div>
-      {
-       isOpenDropDown ? <ChevUpIcon/> : <ChevDownIcon />
-      }
+      {isOpenDropDown ? <ChevUpIcon /> : <ChevDownIcon />}
       <div
         className={`absolute left-0 top-[90%] ${
           isOpenDropDown ? "h-fit opacity-100" : "h-[1px] opacity-0"
@@ -29,9 +39,8 @@ function FilterProductsDropDown() {
               <div className="w-5/6 truncate">All Products</div>
               <input
                 type="checkbox"
-                onChange={(e) => {
-                  console.log(e.target.checked);
-                }}
+                checked={isShowAllProducts}
+                onChange={selectShowAllProductsHandler}
               />
             </div>
             <div className="flex justify-around rounded-b-lg items-center text-white px-1 checkContainer my-3">

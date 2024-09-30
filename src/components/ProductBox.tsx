@@ -1,11 +1,12 @@
 import React from 'react'
+import { Product } from '../store/slices/Products/Products.types'
 
-function ProductBox() {
+function ProductBox({name,data,id}:Product) {
   return (
        <div className="w-full mx-auto flex justify-center items-center">
           <div className="bg-white w-64 h-64 mx-auto rounded-lg p-2 flex flex-col justify-between items-center">
             <div className="text-center text-black text-lg md:text-xl lg:text-2xl font-semibold">
-              title
+              {name}
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="flex justify-center items-center">

@@ -2,6 +2,7 @@ import { productSliceInitialState } from "./Products.types";
 
 const initialState:productSliceInitialState = {
       Data:[],
-      isLoadingDate:false
+      isLoadingData:false,
+      err:""
      };
      export default initialState;
