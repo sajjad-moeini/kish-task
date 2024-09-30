@@ -33,3 +33,13 @@ export type productSliceInitialState = {
 export type errMessage ={
        message:string
 }
+
+export type newProduct={
+       name:string
+       data:{
+              year:number
+              price:number
+              CPU_model:string
+              Hard_disk_size:string
+       }
+}

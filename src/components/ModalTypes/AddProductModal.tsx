@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import CustomInput from "../CustomInput";
 import { Http } from "../../configs/axiosConfig";
+import { useAppDispatch } from "../../store";
+import { addNewProduct } from "../../store/slices/Products/Products.extraReducer";
 
 function AddProductModal() {
   const [name, setName] = useState<string>("");
@@ -9,32 +11,35 @@ function AddProductModal() {
   const [cpuModel, setCpuModel] = useState<string>("");
   const [HardDiskSize, setHardDiskSize] = useState<string>("");
   const [err, setErr] = useState(false);
+  const dispatch = useAppDispatch();
 
   const submitNewProduct = () => {
-    if (name.trim().length && year && price && cpuModel.trim().length && HardDiskSize.trim().length ) {
-       const productInfo = {
-              name,
-              data:{
-                     year,
-                     price,
-                     CPU_model:cpuModel,
-                     Hard_disk_size:HardDiskSize
-              }
-       }
-
-       Http.post("",productInfo)
-       .then(res=>{
-              if(res.status === 200){
-                     console.log(res.data)
-              }
-       })
-       .catch(err=>{
-              setErr(true)
-       })
+    if (
+      name.trim().length &&
+      year &&
+      price &&
+      cpuModel.trim().length &&
+      HardDiskSize.trim().length
+    ) {
+      const productInfo = {
+        name,
+        data: {
+          year,
+          price,
+          CPU_model: cpuModel,
+          Hard_disk_size: HardDiskSize,
+        },
+      };
+      dispatch(addNewProduct(productInfo));
+    } else {
+      setErr(true);
     }
-    else{
-       setErr(true)
-    }
+    setCpuModel("");
+    setYear(0);
+    setPrice(0);
+    setCpuModel("");
+    setHardDiskSize("");
+    
   };
 
   return (
