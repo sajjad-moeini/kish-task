@@ -2,12 +2,10 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { closeModal } from "../../store/slices/Modal/ModalSlice";
 import CloseIcon from "../Icons/CloseIcon";
-
-
-
+import ShowDetailModal from "../ModalTypes/ShowDetailModal";
 
 const Modal = () => {
-  const { isOpen ,modalType } = useAppSelector((state) => state.modal);
+  const { isOpen, modalType } = useAppSelector((state) => state.modal);
   const dispatch = useAppDispatch();
   const closeModalHandler = () => {
     dispatch(closeModal());
@@ -28,9 +26,9 @@ const Modal = () => {
               className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
               onClick={closeModalHandler}
             >
-            <CloseIcon/>
+              <CloseIcon />
             </button>
-  
+            {modalType === "showDetail" && <ShowDetailModal />}
           </div>
         </div>
       )}

@@ -25,7 +25,8 @@ export type AllProducts =Product[]
 export type productSliceInitialState = {
        isLoadingData:boolean
        Data:AllProducts,
-       err:string
+       err:string,
+       singleProduct:Product
 }
 
 export type errMessage ={
