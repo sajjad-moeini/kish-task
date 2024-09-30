@@ -1,26 +1,44 @@
 import React, { useEffect, useState } from "react";
 import ChevDownIcon from "./Icons/ChevDownIcon";
 import ChevUpIcon from "./Icons/ChevUpIcon";
-import { useAppDispatch } from "../store";
-import { getAllProducts } from "../store/slices/Products/Products.extraReducer";
+import { useAppDispatch, useAppSelector } from "../store";
+import { filterProductsById, getAllProducts } from "../store/slices/Products/Products.extraReducer";
+import { QueryGenerator } from "../Utils/queryGenerator";
 
 function FilterProductsDropDown() {
+  
+
   const [isOpenDropDown, setIsOpenDropDown] = useState(false);
   const [isShowAllProducts, setIsShowAllProducts] = useState(true);
+  const [selectedProductsId, setSelectedProductsId] = useState<string[]>([]);
   const dispatch = useAppDispatch();
-
-useEffect(()=>{
-       dispatch(getAllProducts())
-},[])
-  
+  const { Data} = useAppSelector((state) => state.products);
+  useEffect(() => {
+    if (selectedProductsId.length === 0) dispatch(getAllProducts());
+    else dispatch(filterProductsById({query:QueryGenerator(selectedProductsId)}))
+    
+  }, [selectedProductsId]);
 
   const showDropDownHandler = () => {
     setIsOpenDropDown((prev) => !prev);
   };
+
   const selectShowAllProductsHandler = () => {
-       setIsShowAllProducts(true);
-    dispatch(getAllProducts())
+    setSelectedProductsId([]);
+    setIsShowAllProducts(true);
+    dispatch(getAllProducts());
   };
+
+  const selectProductHandler = (id: string) => {
+       setIsShowAllProducts(false);
+       if(!selectedProductsId.includes(id)){
+              setSelectedProductsId(prev => [...prev, id]);
+       }else{
+              const filteredIds = selectedProductsId.filter(number => number !== id)
+              setSelectedProductsId(filteredIds)
+       }
+  };
+
   return (
     <div
       className="px-4 py-1 md:py-2 bg-blue-600 rounded-lg text-white flex justify-around items-center gap-2 cursor-pointer relative"
@@ -32,10 +50,11 @@ useEffect(()=>{
         className={`absolute left-0 top-[90%] ${
           isOpenDropDown ? "h-fit opacity-100" : "h-[1px] opacity-0"
         } transition-all t05 !overflow-hidden w-full py-3 bg-stone-500 rounded-b-lg`}
+        onClick={(e) => e.stopPropagation()} // Prevents closing the dropdown
       >
-        {isOpenDropDown && (
+        {isOpenDropDown  && (
           <>
-            <div className="flex justify-around rounded-b-lg items-center text-white px-1 checkContainer">
+            <div className="flex justify-around rounded-b-lg items-center text-white px-1 ">
               <div className="w-5/6 truncate">All Products</div>
               <input
                 type="checkbox"
@@ -43,15 +62,19 @@ useEffect(()=>{
                 onChange={selectShowAllProductsHandler}
               />
             </div>
-            <div className="flex justify-around rounded-b-lg items-center text-white px-1 checkContainer my-3">
-              <div className="w-5/6 truncate">test1</div>
-              <input
-                type="checkbox"
-                onChange={(e) => {
-                  console.log(e.target.checked);
-                }}
-              />
-            </div>
+            {Data.map((product) => (
+              <div
+                className="flex justify-around rounded-b-lg items-center text-white px-1  my-3"
+                key={product.id}
+              >
+                <div className="w-5/6 truncate">{product.name}</div>
+                <input
+                  type="checkbox"
+                  checked={selectedProductsId.includes(product.id)}
+                  onChange={(e) => selectProductHandler(product.id)}
+                />
+              </div>
+            ))}
           </>
         )}
       </div>

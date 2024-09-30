@@ -24,7 +24,7 @@ function App() {
 {
   isLoadingData? <Loader/>:(
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mx-auto my-14 gap-8  overflow-y-auto">
-    {Data.map((product) => (
+    {Data?.map((product) => (
       <ProductBox {...product} key={product.id} />
     ))}
   </div>
