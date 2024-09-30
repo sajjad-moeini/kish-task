@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../store";
 import { closeModal } from "../../store/slices/Modal/ModalSlice";
 import CloseIcon from "../Icons/CloseIcon";
 import ShowDetailModal from "../ModalTypes/ShowDetailModal";
+import AddProductModal from "../ModalTypes/AddProductModal";
 
 const Modal = () => {
   const { isOpen, modalType } = useAppSelector((state) => state.modal);
@@ -29,6 +30,7 @@ const Modal = () => {
               <CloseIcon />
             </button>
             {modalType === "showDetail" && <ShowDetailModal />}
+            {modalType === "add" && <AddProductModal />}
           </div>
         </div>
       )}

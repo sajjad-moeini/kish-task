@@ -1,14 +1,21 @@
 import "./App.css";
 import FilterProductsDropDown from "./components/FilterProductsDropDown";
 import ProductBox from "./components/ProductBox";
-import { useAppSelector } from "./store";
+import { useAppDispatch, useAppSelector } from "./store";
 import Loader from "./components/Loader/Loader";
 import Modal from "./components/Modal/Modal";
+import { openModal, setModalType } from "./store/slices/Modal/ModalSlice";
 
 function App() {
   const { Data, isLoadingData, err } = useAppSelector(
     (state) => state.products
   );
+  const dispatch = useAppDispatch();
+
+  const showAddProductModal = () => {
+    dispatch(setModalType({ type: "add" }));
+    dispatch(openModal());
+  };
   const products = [
     {
       id: "3",
@@ -43,6 +50,14 @@ function App() {
           Products
         </div>
         <FilterProductsDropDown />
+      </div>
+      <div className="flex justify-end items-center my-5">
+        <button
+          className="text-lg text-white bg-blue-500 px-4 py-2 rounded-lg"
+          onClick={showAddProductModal}
+        >
+          Add Product
+        </button>
       </div>
       {err && (
         <div className="text-red-600 text-lg md:text-2xl my-7">{err}</div>
