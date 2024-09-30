@@ -6,6 +6,7 @@ import ShowDetailModal from "../ModalTypes/ShowDetailModal";
 import AddProductModal from "../ModalTypes/AddProductModal";
 import EditProductInfoModal from "../ModalTypes/EditProductInfoModal";
 import EditNameModal from "../ModalTypes/EditNameModal";
+import DeleteProductModal from "../ModalTypes/DeleteProductModal";
 
 const Modal = () => {
   const { isOpen, modalType } = useAppSelector((state) => state.modal);
@@ -35,6 +36,7 @@ const Modal = () => {
             {modalType === "add" && <AddProductModal />}
             {modalType === "edit" && <EditProductInfoModal />}
             {modalType === "editName" && <EditNameModal />}
+            {modalType === "delete" && <DeleteProductModal />}
           </div>
         </div>
       )}

@@ -158,3 +158,27 @@ export const EditProductName= createAsyncThunk<Product, {name:string,id:string}>
     }
   }
 );
+
+export const DeleteProduct= createAsyncThunk<{message:string}, {id:string}>(
+  "Products/EditProductName",
+  async ({ id }, { dispatch, rejectWithValue }) => {
+  
+    try {
+      const response = await Http.delete(`/${id}`)
+        .then((res) => {
+          if (res.status === 200) {
+            dispatch(getAllProducts());
+            return res.data;
+          }
+        })
+        .catch((error: Error) => {
+          return rejectWithValue(error);
+        });
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    } finally {
+      dispatch(closeModal());
+    }
+  }
+);

@@ -16,32 +16,6 @@ function App() {
     dispatch(setModalType({ type: "add" }));
     dispatch(openModal());
   };
-  const products = [
-    {
-      id: "3",
-      name: "Apple iPhone 12 Pro Max",
-      data: {
-        color: "Cloudy White",
-        capacityGB: 512,
-      },
-    },
-    {
-      id: "5",
-      name: "Samsung Galaxy Z Fold2",
-      data: {
-        price: 689.99,
-        color: "Brown",
-      },
-    },
-    {
-      id: "10",
-      name: "Apple iPad Mini 5th Gen",
-      data: {
-        capacity: "64 GB",
-        screenSize: 7.9,
-      },
-    },
-  ];
 
   return (
     <div className="min-h-screen w-full bg-slate-800 px-4 md:px-16 lg:px-24 py-[5%] relative">
@@ -66,7 +40,7 @@ function App() {
         <Loader />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mx-auto my-14 gap-8  overflow-y-auto">
-          {products?.map((product) => (
+          {Data?.map((product) => (
             <ProductBox {...product} key={product.id} />
           ))}
         </div>
