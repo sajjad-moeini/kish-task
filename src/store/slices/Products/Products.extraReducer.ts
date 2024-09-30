@@ -1,6 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { Http } from "../../../configs/axiosConfig";
-import { AllProducts, editProductReqest, newProduct, Product } from "./Products.types";
+import {
+  AllProducts,
+  editProductReqest,
+  newProduct,
+  Product,
+} from "./Products.types";
 import { setErrMessage } from "./Products.Slice";
 import { appUrls } from "../../../Utils/AppUrls";
 import { closeModal } from "../Modal/ModalSlice";
@@ -86,7 +91,7 @@ export const addNewProduct = createAsyncThunk<Product, newProduct>(
       const response = await Http.post("", data)
         .then((res) => {
           if (res.status === 201) {
-            dispatch(getAllProducts());           
+            dispatch(getAllProducts());
             return res.data;
           }
         })
@@ -96,22 +101,25 @@ export const addNewProduct = createAsyncThunk<Product, newProduct>(
       return response;
     } catch (error) {
       return rejectWithValue(error);
-    }
-    finally{
-       dispatch(closeModal())
+    } finally {
+      dispatch(closeModal());
     }
   }
 );
 
-
-export const EditProductInfo = createAsyncThunk<Product,any>(
+export const EditProductInfo = createAsyncThunk<Product, any>(
   "Products/EditProductInfo",
   async ({ data }, { dispatch, rejectWithValue }) => {
+    const { id, name, newInfo } = data;
+    const editedData = {
+      name,
+      data: newInfo,
+    };
     try {
-      const response = await Http.put("", data)
+      const response = await Http.put(`${id}`, editedData)
         .then((res) => {
           if (res.status === 200) {
-            dispatch(getAllProducts());           
+            dispatch(getAllProducts());
             return res.data;
           }
         })
@@ -121,9 +129,32 @@ export const EditProductInfo = createAsyncThunk<Product,any>(
       return response;
     } catch (error) {
       return rejectWithValue(error);
+    } finally {
+      dispatch(closeModal());
     }
-    finally{
-       dispatch(closeModal())
+  }
+);
+
+export const EditProductName= createAsyncThunk<Product, {name:string,id:string}>(
+  "Products/EditProductName",
+  async ({ name,id }, { dispatch, rejectWithValue }) => {
+  
+    try {
+      const response = await Http.patch(`/${id}`, {name})
+        .then((res) => {
+          if (res.status === 200) {
+            dispatch(getAllProducts());
+            return res.data;
+          }
+        })
+        .catch((error: Error) => {
+          return rejectWithValue(error);
+        });
+      return response;
+    } catch (error) {
+      return rejectWithValue(error);
+    } finally {
+      dispatch(closeModal());
     }
   }
 );

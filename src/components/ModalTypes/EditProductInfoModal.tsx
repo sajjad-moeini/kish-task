@@ -5,11 +5,11 @@ import CustomInput from "../CustomInput";
 import { EditProductInfo } from "../../store/slices/Products/Products.extraReducer";
 
 function EditProductInfoModal() {
-       const { name, data } = useAppSelector(
-              (state) => state.products.singleProduct
-            );
+  const { name, data, id } = useAppSelector(
+    (state) => state.products.singleProduct
+  );
   const { singleProductLoading } = useAppSelector((state) => state.products);
-const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const convertedDataToArray = data
     ? Object.entries(data).map(([key, value]) => ({
         title: key,
@@ -25,7 +25,6 @@ const dispatch = useAppDispatch()
     }, {} as { [key: string]: string | number })
   );
 
-
   const handleInputChange = (
     key: string,
     value: React.SetStateAction<string | number>
@@ -38,10 +37,11 @@ const dispatch = useAppDispatch()
 
   const handleSubmit = () => {
     const data = {
-       name,
-       data:productData
-    }
-    dispatch(EditProductInfo({data}))
+      id,
+      name,
+      newInfo: productData,
+    };
+    dispatch(EditProductInfo({ data }));
   };
 
   return (
@@ -68,13 +68,12 @@ const dispatch = useAppDispatch()
             </div>
           ))}
           <div className="flex justify-end items-center">
-          <button
-            className="px-4 py-2 mt-4 text-white  bg-blue-500 rounded-lg"
-            onClick={handleSubmit}
-            
-          >
-            Submit
-          </button>
+            <button
+              className="px-4 py-2 mt-4 text-white  bg-blue-500 rounded-lg"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
           </div>
         </div>
       )}

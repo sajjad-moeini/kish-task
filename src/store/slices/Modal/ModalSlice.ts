@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialState } from "./ModalInitialState";
 
-type modalType ={
+export type modalType ={
   type : "add"|"edit" | "delete"|"editName"|"showDetail"
 }
 
