@@ -4,6 +4,7 @@ import { closeModal } from "../../store/slices/Modal/ModalSlice";
 import CloseIcon from "../Icons/CloseIcon";
 import ShowDetailModal from "../ModalTypes/ShowDetailModal";
 import AddProductModal from "../ModalTypes/AddProductModal";
+import EditProductInfoModal from "../ModalTypes/EditProductInfoModal";
 
 const Modal = () => {
   const { isOpen, modalType } = useAppSelector((state) => state.modal);
@@ -16,7 +17,7 @@ const Modal = () => {
     <>
       {isOpen && (
         <div
-          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50"
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-y-auto"
           onClick={closeModalHandler}
         >
           <div
@@ -31,6 +32,7 @@ const Modal = () => {
             </button>
             {modalType === "showDetail" && <ShowDetailModal />}
             {modalType === "add" && <AddProductModal />}
+            {modalType === "edit" && <EditProductInfoModal />}
           </div>
         </div>
       )}

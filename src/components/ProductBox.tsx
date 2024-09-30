@@ -12,6 +12,11 @@ function ProductBox({ name, data, id }: any) {
     dispatch(setModalType({type:"showDetail"}))
     dispatch(openModal())
   };
+  const editProductInfoHandler =()=>{
+    dispatch(GetProductsById({ id }));
+    dispatch(setModalType({type:"edit"}))
+    dispatch(openModal())
+  }
   return (
     <div className="w-full mx-auto flex justify-center items-center">
       <div className="bg-white w-64 h-64 mx-auto rounded-lg p-2 flex flex-col justify-between items-center">
@@ -28,7 +33,7 @@ function ProductBox({ name, data, id }: any) {
             </button>
           </div>
           <div className="flex justify-center items-center">
-            <button className="text-white px-4 py-2 bg-orange-600 rounded-lg">
+            <button className="text-white px-4 py-2 bg-orange-600 rounded-lg" onClick={editProductInfoHandler}>
               Edit
             </button>
           </div>

@@ -1,5 +1,5 @@
-type ProductsData ={
- color:string
+export type ProductsData ={
+ color?:string
  capacity?:string
  capacity_GB?:string
  price?:number
@@ -42,4 +42,9 @@ export type newProduct={
               CPU_model:string
               Hard_disk_size:string
        }
+}
+
+export type editProductReqest = {
+       name:string
+       data:{ name: string; data: { [key: string]: string | number; }; }
 }
