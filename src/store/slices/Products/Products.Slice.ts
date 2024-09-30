@@ -40,14 +40,14 @@ const ProductsSlice = createSlice({
 
 
        .addCase(GetProductsById.pending, (state) => {
-         state.isLoadingData= true;
+         state.singleProductLoading= true;
        })
        .addCase(GetProductsById.fulfilled, (state, { payload }:PayloadAction<Product>) => {
-         state.isLoadingData = false;
+         state.singleProductLoading = false;
          state.singleProduct = payload;
        })
        .addCase(GetProductsById.rejected, (state) => {
-         state.isLoadingData = false;
+         state.singleProductLoading = false;
        })
 
 

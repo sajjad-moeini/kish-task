@@ -22,5 +22,6 @@ const initialState: productSliceInitialState = {
       Screen_size: "",
     },
   },
+  singleProductLoading:false
 };
 export default initialState;

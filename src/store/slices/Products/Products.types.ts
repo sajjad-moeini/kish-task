@@ -27,6 +27,7 @@ export type productSliceInitialState = {
        Data:AllProducts,
        err:string,
        singleProduct:Product
+       singleProductLoading:boolean
 }
 
 export type errMessage ={
