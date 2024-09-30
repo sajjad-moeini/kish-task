@@ -50,7 +50,7 @@ function FilterProductsDropDown() {
         className={`absolute left-0 top-[90%] ${
           isOpenDropDown ? "h-fit opacity-100" : "h-[1px] opacity-0"
         } transition-all t05 !overflow-hidden w-full py-3 bg-stone-500 rounded-b-lg`}
-        onClick={(e) => e.stopPropagation()} // Prevents closing the dropdown
+        onClick={(e) => e.stopPropagation()} 
       >
         {isOpenDropDown  && (
           <>
